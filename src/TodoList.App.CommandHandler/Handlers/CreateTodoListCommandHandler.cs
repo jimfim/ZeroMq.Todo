@@ -2,8 +2,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using TodoList.Commands;
 
-namespace TodoList.Commands
+namespace Server.Handlers
 {
     public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand>
     {

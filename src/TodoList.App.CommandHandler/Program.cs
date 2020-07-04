@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Server.Handlers;
 using TodoList.Commands;
 
 namespace Server
@@ -17,7 +18,7 @@ namespace Server
             return Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddMediatR(typeof(CreateTodoListCommand));
+                    services.AddMediatR(typeof(CreateTodoListCommandHandler));
                     services.AddHostedService<CommandListener>();
                 });
         }
