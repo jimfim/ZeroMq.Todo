@@ -1,51 +1,51 @@
 version: '3'
 services:
-  # redis:
-  #   image: redis:latest
-  #   restart: always
-  #   ports:
-  #     - 6379:6379
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
 
-  # redis-commander:
-  #   container_name: redis-commander
-  #   hostname: redis-commander
-  #   image: rediscommander/redis-commander:latest
-  #   restart: always
-  #   environment:
-  #     - REDIS_HOSTS=local:redis:6379
-  #   ports:
-  #     - "8081:8081"
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
 
-  command-handler:
-    image: docker.io/jimfim/command-handler:latest
-    build:
-      context: .
-      container_name: command-handler
-      dockerfile: containers/CommandHandler.Dockerfile
+  # command-handler:
+  #   image: docker.io/jimfim/command-handler:latest
+  #   build:
+  #     context: .
+  #     container_name: command-handler
+  #     dockerfile: containers/CommandHandler.Dockerfile
 
-  query-handler:
-    image: docker.io/jimfim/query-handler:latest
-    build:
-      context: .
-      container_name: query-handler
-      dockerfile: containers/QueryHandler.Dockerfile
+  # query-handler:
+  #   image: docker.io/jimfim/query-handler:latest
+  #   build:
+  #     context: .
+  #     container_name: query-handler
+  #     dockerfile: containers/QueryHandler.Dockerfile
 
-  command-proxy:
-    image: docker.io/jimfim/command-proxy:latest
-    build:
-      context: .
-      container_name: command-proxy
-      dockerfile: containers/CommandProxy.Dockerfile
+  # command-proxy:
+  #   image: docker.io/jimfim/command-proxy:latest
+  #   build:
+  #     context: .
+  #     container_name: command-proxy
+  #     dockerfile: containers/CommandProxy.Dockerfile
 
-  query-proxy:
-    image: docker.io/jimfim/query-proxy:latest
-    build:
-      context: .
-      container_name: query-proxy
-      dockerfile: containers/QueryProxy.Dockerfile
+  # query-proxy:
+  #   image: docker.io/jimfim/query-proxy:latest
+  #   build:
+  #     context: .
+  #     container_name: query-proxy
+  #     dockerfile: containers/QueryProxy.Dockerfile
 
-  gateway:
-    image: docker.io/jimfim/gateway:latest
-    build:
-      context: .
-      dockerfile: containers/Gateway.Dockerfile
+  # gateway:
+  #   image: docker.io/jimfim/gateway:latest
+  #   build:
+  #     context: .
+  #     dockerfile: containers/Gateway.Dockerfile

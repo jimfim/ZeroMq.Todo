@@ -10,7 +10,8 @@ namespace Server.Handlers
     {
         public async Task<Unit> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
         {
-            await Console.Out.WriteLineAsync($"{request.Name}");
+            var thread = Thread.CurrentThread.ManagedThreadId;
+            await Console.Out.WriteLineAsync($"{thread} : {request.Name}");
             return Unit.Value;
         }
     }
