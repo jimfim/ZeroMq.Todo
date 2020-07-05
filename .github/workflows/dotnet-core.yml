@@ -14,12 +14,20 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Fetch all history for all tags and branches
-      run: git fetch --prune --unshallow
+    # - name: Fetch all history for all tags and branches
+    #   run: git fetch --prune --unshallow
+
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.2
       with:
           versionSpec: '5.2.x'
+
+    - name: install buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
+
     - name: Use GitVersion
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.2
@@ -63,12 +71,20 @@ jobs:
       run: dotnet restore ./src/
     - name: Build
       run: dotnet build --configuration Release --no-restore ./src/
-    - name: Docker
-      uses: docker/build-push-action@v1
-      with:
-        dockerfile: ./containers/Gateway.Dockerfile
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: docker.io/${{ secrets.DOCKER_USERNAME }}/gateway
-        tags: latest
+    # - name: Docker
+    #   uses: docker/build-push-action@v1
+    #   with:
+    #     dockerfile: ./containers/Gateway.Dockerfile
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
+    #     repository: docker.io/${{ secrets.DOCKER_USERNAME }}/gateway
+    #     tags: latest
 
+
+    - name: build the image
+      run: |
+        docker buildx build \
+          --tag ${{ secrets.DOCKER_USERNAME }}/gateway:latest \
+          --platform linux/amd64,linux/arm/v7,linux/arm64 
+          --output "type=image,push=true" \
+          --file ./containers/Gateway.Dockerfile . 
