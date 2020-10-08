@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TodoList.Query.Models;
+using Response.Handlers;
 
 namespace Response
 {
@@ -17,7 +17,7 @@ namespace Response
             return Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddMediatR(typeof(GetTodoListResponse));
+                    services.AddMediatR(typeof(GetToDoListHandler));
                     services.AddHostedService<QueryListener>();
                 });
         }

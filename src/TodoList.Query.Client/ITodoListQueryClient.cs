@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using TodoList.Query.Models;
+using TodoList.Queries;
 
 namespace TodoList.Query.Client
 {

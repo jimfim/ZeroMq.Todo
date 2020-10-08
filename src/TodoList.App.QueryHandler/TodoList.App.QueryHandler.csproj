@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\TodoList.Queries\TodoList.Queries.csproj" />
       <ProjectReference Include="..\TodoList.Query.Models\TodoList.Query.Models.csproj" />
     </ItemGroup>
 

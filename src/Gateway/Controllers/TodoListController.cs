@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TodoList.Client.Command;
 using TodoList.Commands;
+using TodoList.Queries;
 using TodoList.Query.Client;
-using TodoList.Query.Models;
 
 namespace Gateway.Controllers
 {

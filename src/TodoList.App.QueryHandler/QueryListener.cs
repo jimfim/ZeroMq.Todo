@@ -52,7 +52,8 @@ namespace Response
                 }, cancellationToken);
 
                 var response = await _mediator.Send(command, cancellationToken);
-                server.SendFrame(JsonConvert.SerializeObject(response));
+                var payload = JsonConvert.SerializeObject(response);
+                server.SendFrame(payload);
             }
         }
     }
