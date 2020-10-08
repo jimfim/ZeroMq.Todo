@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using Gateway.ViewModels;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TodoList.Client.Command;
 using TodoList.Commands;
+using TodoList.Query.Client;
+using TodoList.Query.Models;
 
 namespace Gateway.Controllers
 {
@@ -11,22 +13,19 @@ namespace Gateway.Controllers
     public class TodoListController : ControllerBase
     {
         private readonly ITodoListCommandClient _todoListCommandClient;
+        private readonly ITodoListQueryClient _todoListQueryClient;
 
-        public TodoListController(ITodoListCommandClient todoListCommandClient)
+        public TodoListController(ITodoListCommandClient todoListCommandClient,ITodoListQueryClient todoListQueryClient)
         {
             _todoListCommandClient = todoListCommandClient;
+            _todoListQueryClient = todoListQueryClient;
         }
 
-        [HttpGet]
-        public IEnumerable<TodoListViewModel> Get()
+        [HttpGet("{id}")]
+        public async Task<GetTodoListResponse> Get(Guid id)
         {
-            return new List<TodoListViewModel>
-            {
-                new TodoListViewModel
-                {
-                    Name = "Hello World"
-                }
-            };
+            var response = await _todoListQueryClient.GetAsync(id);
+            return response;
         }
 
         [HttpPost]

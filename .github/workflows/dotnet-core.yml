@@ -79,7 +79,7 @@ jobs:
         echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
 
     ## apps
-    - name: Build Gateway Container
+    - name: Generate Gateway Container
       run: |
         docker buildx build \
           --tag ${{ secrets.DOCKER_USERNAME }}/gateway:latest \
@@ -87,7 +87,7 @@ jobs:
           --output "type=image,push=true" \
           --file ./containers/Gateway.Dockerfile . 
 
-    - name: Generate QueryHandler Image
+    - name: Generate QueryHandler Container
       run: |
         docker buildx build \
           --tag ${{ secrets.DOCKER_USERNAME }}/command-handler:latest \
@@ -96,7 +96,7 @@ jobs:
           --file ./containers/CommandHandler.Dockerfile .
 
 
-    - name: Generate CommandHandler Image
+    - name: Generate CommandHandler Container
       run: |
         docker buildx build \
           --tag ${{ secrets.DOCKER_USERNAME }}/query-handler:latest \

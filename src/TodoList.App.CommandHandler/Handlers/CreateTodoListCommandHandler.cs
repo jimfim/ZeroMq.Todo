@@ -6,13 +6,12 @@ using TodoList.Commands;
 
 namespace Server.Handlers
 {
-    public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand>
+    public class CreateTodoListCommandHandler : AsyncRequestHandler<CreateTodoListCommand>
     {
-        public async Task<Unit> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
         {
             var thread = Thread.CurrentThread.ManagedThreadId;
             await Console.Out.WriteLineAsync($"{thread} : {request.Name}");
-            return Unit.Value;
         }
     }
 }

@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TodoList.Command.Client\TodoList.Command.Client.csproj" />
+      <ProjectReference Include="..\TodoList.Query.Client\TodoList.Query.Client.csproj" />
     </ItemGroup>
 
 
