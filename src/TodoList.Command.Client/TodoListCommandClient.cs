@@ -22,7 +22,6 @@ namespace TodoList.Client.Command
         {
             var payload = JsonConvert.SerializeObject(command, _settings);
             _sender.SendFrame(payload);
-            Console.Out.WriteLineAsync($"Sending {nameof(CreateTodoListCommand)}");
         }
     }
 }
