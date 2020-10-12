@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Configuration;
 using NetMQ;
 using NetMQ.Sockets;
 using Newtonsoft.Json;
@@ -8,14 +9,16 @@ namespace TodoList.Client.Command
 {
     public class TodoListCommandClient : ITodoListCommandClient
     {
+        private readonly IConfiguration _configuration;
         private readonly PushSocket _sender;
 
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
             {TypeNameHandling = TypeNameHandling.All};
 
-        public TodoListCommandClient()
+        public TodoListCommandClient(IConfiguration configuration)
         {
-            _sender = new PushSocket(">tcp://127.0.0.1:5678");
+            _configuration = configuration;
+            _sender = new PushSocket(configuration["PullSocket"]);
         }
 
         public void CreateTodoList(CreateTodoListCommand command)

@@ -10,4 +10,10 @@
       <PackageReference Include="NetMQ" Version="4.0.1.6" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="appsettings.Release.json">
+        <DependentUpon>appsettings.json</DependentUpon>
+      </None>
+    </ItemGroup>
+
 </Project>

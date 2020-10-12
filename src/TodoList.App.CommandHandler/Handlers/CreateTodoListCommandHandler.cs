@@ -10,6 +10,7 @@ namespace Server.Handlers
     {
         protected override async Task Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
         {
+            // domain stuff goes here
             var thread = Thread.CurrentThread.ManagedThreadId;
             await Console.Out.WriteLineAsync($"{thread} : {request.Name}");
         }
