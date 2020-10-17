@@ -93,7 +93,7 @@ jobs:
           --tag ${{ secrets.DOCKER_USERNAME }}/query-handler:${{ steps.gitversion.outputs.nuGetVersionV2 }} \
           --platform linux/amd64,linux/arm64 \
           --output "type=image,push=true" \
-          --file ./containers/CommandHandler.Dockerfile .
+          --file ./containers/QueryHandler.Dockerfile .
 
     - name: Generate QueryProxy Container
       run: |
@@ -101,7 +101,7 @@ jobs:
           --tag ${{ secrets.DOCKER_USERNAME }}/query-proxy:${{ steps.gitversion.outputs.nuGetVersionV2 }} \
           --platform linux/amd64,linux/arm64 \
           --output "type=image,push=true" \
-          --file ./containers/CommandHandler.Dockerfile .
+          --file ./containers/QueryProxy.Dockerfile .
 
 
     - name: Generate CommandHandler Container
@@ -110,7 +110,7 @@ jobs:
           --tag ${{ secrets.DOCKER_USERNAME }}/command-handler:${{ steps.gitversion.outputs.nuGetVersionV2 }} \
           --platform linux/amd64,linux/arm64 \
           --output "type=image,push=true" \
-          --file ./containers/QueryHandler.Dockerfile .
+          --file ./containers/CommandHandler.Dockerfile .
 
 
     - name: Generate CommandProxy Container
@@ -119,4 +119,4 @@ jobs:
           --tag ${{ secrets.DOCKER_USERNAME }}/command-proxy:${{ steps.gitversion.outputs.nuGetVersionV2 }} \
           --platform linux/amd64,linux/arm64 \
           --output "type=image,push=true" \
-          --file ./containers/QueryHandler.Dockerfile .
+          --file ./containers/CommandProxy.Dockerfile .
