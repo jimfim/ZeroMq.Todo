@@ -16,7 +16,6 @@ export class MyChart extends Chart {
       image: 'jimfim/query-proxy:latest'
     });
 
-    new WebService()
     new WebService(this, 'gateway', { 
       name: "gateway",
       image: 'jimfim/gateway:latest'
