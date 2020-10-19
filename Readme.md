@@ -16,12 +16,20 @@ kind create cluster --config infra/kind.yaml --name todo
 
 ### Build Chart
 
+If you don't want to install cdk8s locally you can use this docker image
+
 ```bash
 docker build -t deploy -f containers/Deploy.Dockerfile
 ```
 
+Commands to build npm run
+
 ```bash
-kubectl apply -f deploy/dist/*.yaml
+docker run -v ./deploy:/app:Z deploy npm run watch
+docker run -v ./deploy:/app:Z deploy npm run compile
+docker run -v ./deploy:/app:Z deploy npm run synth
+kubectl apply -f ./deploy/dist/*.yaml
+#sed "s/:latest/:0.1.0-configurable-app0001/" ./deploy/dist/todo.k8s.yaml | kubectl apply -f -
 ```
 
 ### Watch Chart
@@ -47,4 +55,3 @@ kind load docker-image docker.io/jimfim/gateway
 kind load docker-image docker.io/jimfim/command-proxy
 kind load docker-image docker.io/jimfim/command-handler:latest
 ```
-

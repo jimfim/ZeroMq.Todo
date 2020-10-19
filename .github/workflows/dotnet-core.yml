@@ -112,7 +112,6 @@ jobs:
           --output "type=image,push=true" \
           --file ./containers/CommandHandler.Dockerfile .
 
-
     - name: Generate CommandProxy Container
       run: |
         docker buildx build \

@@ -3,6 +3,12 @@ import { Deployment, Service, IntOrString, HorizontalPodAutoscaler } from '../im
 import { Names } from 'cdk8s';
 
 export interface WebServiceOptions {
+
+    /**
+   * The name to use for this service.
+   */
+  readonly name: string;
+  
   /**
    * The Docker image to use for this service.
    */
@@ -40,10 +46,13 @@ export class WebService extends Construct {
     const replicas = options.replicas ?? 2;
 
     new Service(this, 'service', {
+      metadata:{
+        name: options.name
+      },
       spec: {
-        type: 'LoadBalancer',
+        type: 'ClusterIP',
         ports: [ { port, targetPort: IntOrString.fromNumber(containerPort) } ],
-        selector: label
+        selector: label,
       }
     });
 
@@ -71,7 +80,7 @@ export class WebService extends Construct {
           spec: {
             containers: [
               {
-                name: 'app',
+                name: options.name,
                 image: options.image,
                 ports: [ { containerPort } ]
               }
