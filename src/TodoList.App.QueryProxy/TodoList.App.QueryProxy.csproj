@@ -16,9 +16,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsettings.Release.json">
+      <None Remove="appsettings.json" />
+      <Content Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="appsettings.Release.json" />
+      <Content Include="appsettings.Release.json">
         <DependentUpon>appsettings.json</DependentUpon>
-      </None>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
