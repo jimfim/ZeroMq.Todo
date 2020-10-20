@@ -82,8 +82,15 @@ export class WebService extends Construct {
               {
                 name: options.name,
                 image: options.image,
-                ports: [ { containerPort } ]
-              }
+                ports: [ { containerPort } ],
+                env: [
+                  {  
+                    name: 'ENVIRONMENT',
+                    value: 'Release',
+                    valueFrom: undefined,
+                  }
+                ]
+              },
             ]
           }
         }

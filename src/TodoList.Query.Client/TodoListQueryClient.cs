@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using NetMQ;
 using NetMQ.Sockets;
 using Newtonsoft.Json;
@@ -12,9 +13,9 @@ namespace TodoList.Query.Client
         private readonly RequestSocket _sender;
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
-        public TodoListQueryClient()
+        public TodoListQueryClient(IConfiguration configuration)
         {
-            _sender = new RequestSocket(">tcp://localhost:5556");
+            _sender = new RequestSocket(configuration["todo-query-proxy"]);
         }
 
         public async Task<GetTodoListResponse> GetAsync(Guid request)

@@ -18,7 +18,7 @@ namespace TodoList.Client.Command
         public TodoListCommandClient(IConfiguration configuration)
         {
             _configuration = configuration;
-            _sender = new PushSocket(configuration["PullSocket"]);
+            _sender = new PushSocket(configuration["todo-command-proxy"]);
         }
 
         public void CreateTodoList(CreateTodoListCommand command)
