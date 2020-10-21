@@ -86,8 +86,7 @@ export class WebService extends Construct {
                 env: [
                   {  
                     name: 'ENVIRONMENT',
-                    value: 'Release',
-                    valueFrom: undefined,
+                    value: 'Release'
                   }
                 ]
               },

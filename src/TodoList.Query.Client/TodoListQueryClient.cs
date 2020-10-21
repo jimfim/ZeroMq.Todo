@@ -15,7 +15,9 @@ namespace TodoList.Query.Client
 
         public TodoListQueryClient(IConfiguration configuration)
         {
-            _sender = new RequestSocket(configuration["todo-query-proxy"]);
+            var connectionString = configuration["query-proxy"];
+            Console.WriteLine($"Connecting to {connectionString}");
+            _sender = new RequestSocket(connectionString);
         }
 
         public async Task<GetTodoListResponse> GetAsync(Guid request)
