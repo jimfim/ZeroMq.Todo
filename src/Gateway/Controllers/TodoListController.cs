@@ -8,12 +8,13 @@ using TodoList.Query.Client;
 
 namespace Gateway.Controllers
 {
-    [ApiController]
+    [Controller]
     [Route("[controller]")]
     public class TodoListController : ControllerBase
     {
         private readonly ITodoListCommandClient _todoListCommandClient;
         private readonly ITodoListQueryClient _todoListQueryClient;
+        public record CreateTodoListRequest(string name);
 
         public TodoListController(ITodoListCommandClient todoListCommandClient,ITodoListQueryClient todoListQueryClient)
         {
@@ -29,9 +30,12 @@ namespace Gateway.Controllers
         }
 
         [HttpPost]
-        public void Create([FromBody] CreateTodoListCommand command)
+        public void Create([FromBody] CreateTodoListRequest request)
         {
-            _todoListCommandClient.CreateTodoList(command);
+            _todoListCommandClient.CreateTodoListAsync(new CreateTodoListCommand()
+            {
+                Name = request.name
+            });
         }
     }
 }

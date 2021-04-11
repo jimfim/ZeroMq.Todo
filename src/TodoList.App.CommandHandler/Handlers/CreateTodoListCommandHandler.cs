@@ -4,14 +4,13 @@ using System.Threading.Tasks;
 using MediatR;
 using TodoList.Commands;
 
-namespace Server.Handlers
+namespace TodoList.App.CommandHandler.Handlers
 {
     public class CreateTodoListCommandHandler : AsyncRequestHandler<CreateTodoListCommand>
     {
         protected override async Task Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
         {
-            var thread = Thread.CurrentThread.ManagedThreadId;
-            await Console.Out.WriteLineAsync($"{thread} : {request.Name}");
+            await Console.Out.WriteLineAsync($"{request.Name}");
         }
     }
 }

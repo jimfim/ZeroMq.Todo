@@ -1,23 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using NetMQ;
 using NetMQ.Sockets;
-using Newtonsoft.Json;
 
 namespace Response
 {
     public class QueryListener : BackgroundService
     {
         private readonly IMediator _mediator;
-
-        private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
-        {
-            TypeNameHandling = TypeNameHandling.Auto
-        };
 
         public QueryListener(IMediator mediator)
         {
@@ -45,15 +41,14 @@ namespace Response
                     return;
                 }
 
-                var command = await Task.Factory.StartNew(() =>
+                var command = await Task.Factory.StartNew(async () =>
                 {
-                    var frameString = server.ReceiveFrameString();
-                    return JsonConvert.DeserializeObject(frameString, _jsonSerializerSettings);
+                    var frameString = server.ReceiveFrameBytes();
+                    return await JsonSerializer.DeserializeAsync<IRequest>(new MemoryStream(frameString),null, cancellationToken);
                 }, cancellationToken);
 
                 var response = await _mediator.Send(command, cancellationToken);
-                var payload = JsonConvert.SerializeObject(response);
-                server.SendFrame(payload);
+                server.SendFrame(JsonSerializer.SerializeToUtf8Bytes(response));
             }
         }
     }

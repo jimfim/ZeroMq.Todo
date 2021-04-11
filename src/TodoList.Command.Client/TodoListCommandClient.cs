@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using NetMQ;
 using NetMQ.Sockets;
-using Newtonsoft.Json;
 using TodoList.Commands;
+using TodoList.Common;
 
 namespace TodoList.Client.Command
 {
@@ -10,18 +10,16 @@ namespace TodoList.Client.Command
     {
         private readonly PushSocket _sender;
 
-        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
-            {TypeNameHandling = TypeNameHandling.All};
-
         public TodoListCommandClient()
         {
             _sender = new PushSocket(">tcp://127.0.0.1:5678");
         }
 
-        public void CreateTodoList(CreateTodoListCommand command)
+        public Task CreateTodoListAsync(CreateTodoListCommand command)
         {
-            var payload = JsonConvert.SerializeObject(command, _settings);
-            _sender.SendFrame(payload);
+            var message = MessageExtensions.PrepMessage(command);
+            _sender.SendMultipartMessage(message);
+            return Task.CompletedTask;
         }
     }
 }

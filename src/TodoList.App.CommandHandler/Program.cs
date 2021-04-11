@@ -1,10 +1,9 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Server.Handlers;
-using TodoList.Commands;
+using TodoList.App.CommandHandler.Handlers;
 
-namespace Server
+namespace TodoList.App.CommandHandler
 {
     internal class Program
     {

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using NetMQ;
 using NetMQ.Sockets;
-using Newtonsoft.Json;
 using TodoList.Queries;
 
 namespace TodoList.Query.Client
@@ -10,7 +9,7 @@ namespace TodoList.Query.Client
     public class TodoListQueryClient : ITodoListQueryClient
     {
         private readonly RequestSocket _sender;
-        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+        //private readonly JsonSerializerSettings _settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
         public TodoListQueryClient()
         {
@@ -19,14 +18,15 @@ namespace TodoList.Query.Client
 
         public async Task<GetTodoListResponse> GetAsync(Guid request)
         {
-            var payload = JsonConvert.SerializeObject(new GetTodoListRequest
-            {
-                Id = request
-            }, _settings);
-
-            _sender.SendFrame(payload);
-            var response = _sender.ReceiveFrameString();
-            return JsonConvert.DeserializeObject<GetTodoListResponse>(response);
+            // var payload = JsonConvert.SerializeObject(new GetTodoListRequest
+            // {
+            //     Id = request
+            // }, _settings);
+            //
+            // _sender.SendFrame(payload);
+            // var response = _sender.ReceiveFrameString();
+            // return JsonConvert.DeserializeObject<GetTodoListResponse>(response);
+            return null;
         }
     }
 }
