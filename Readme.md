@@ -55,3 +55,13 @@ kind load docker-image docker.io/jimfim/gateway
 kind load docker-image docker.io/jimfim/command-proxy
 kind load docker-image docker.io/jimfim/command-handler:latest
 ```
+
+
+
+
+
+RET=`telnet localhost 6379 << EOF
+XREAD BLOCK 0 STREAMS EventNet:Primary $
+EOF`
+
+echo $RET

@@ -8,17 +8,29 @@ export class MyChart extends Chart {
     
     new WebService(this, 'query-handler', { 
       name: "query-handler",
-      image: 'jimfim/query-handler:latest'
+      image: 'localhost:5000/query-handler:latest'
     });
     
     new WebService(this, 'query-proxy', { 
       name: "query-proxy",
-      image: 'jimfim/query-proxy:latest'
+      image: 'localhost:5000/query-proxy:latest'
     });
+
+
+    new WebService(this, 'command-handler', { 
+      name: "command-handler",
+      image: 'localhost:5000/command-handler:latest'
+    });
+    
+    new WebService(this, 'command-proxy', { 
+      name: "command-proxy",
+      image: 'localhost:5000/command-proxy:latest'
+    });
+
 
     new WebService(this, 'gateway', { 
       name: "gateway",
-      image: 'jimfim/gateway:latest'
+      image: 'localhost:5000/gateway:latest'
     });
   }
 }

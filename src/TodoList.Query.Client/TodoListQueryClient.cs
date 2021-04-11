@@ -15,6 +15,7 @@ namespace TodoList.Query.Client
 
         public TodoListQueryClient(IConfiguration configuration)
         {
+            Console.WriteLine($"constructing TodoListQueryClient");
             var connectionString = configuration["query-proxy"];
             Console.WriteLine($"Connecting to {connectionString}");
             _sender = new RequestSocket(connectionString);
@@ -28,6 +29,7 @@ namespace TodoList.Query.Client
             }, _settings);
 
             _sender.SendFrame(payload);
+            //_sender.re
             var response = _sender.ReceiveFrameString();
             return JsonConvert.DeserializeObject<GetTodoListResponse>(response);
         }

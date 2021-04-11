@@ -15,8 +15,9 @@ namespace Gateway.Controllers
         private readonly ITodoListCommandClient _todoListCommandClient;
         private readonly ITodoListQueryClient _todoListQueryClient;
 
-        public TodoListController(ITodoListCommandClient todoListCommandClient,ITodoListQueryClient todoListQueryClient)
+        public TodoListController(ITodoListCommandClient todoListCommandClient, ITodoListQueryClient todoListQueryClient)
         {
+            Console.WriteLine($"Constructing");
             _todoListCommandClient = todoListCommandClient;
             _todoListQueryClient = todoListQueryClient;
         }
@@ -24,6 +25,7 @@ namespace Gateway.Controllers
         [HttpGet("{id}")]
         public async Task<GetTodoListResponse> Get(Guid id)
         {
+            Console.WriteLine($"Get {id}");
             var response = await _todoListQueryClient.GetAsync(id);
             return response;
         }
